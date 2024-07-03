@@ -1,0 +1,27 @@
+name: "Ruby on Rails CI"
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  build:
+    name: build
+    runs-on: [self-hosted]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up image name
+        run: |
+          BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | tr '/' '-')
+          echo "IMAGE_NAME=my-test:${BRANCH_NAME}-${GITHUB_SHA}" >> $GITHUB_ENV
+
+      - name: Build image
+        run: |
+          docker build \
+          --tag ${{ env.IMAGE_NAME }} \
+          .
