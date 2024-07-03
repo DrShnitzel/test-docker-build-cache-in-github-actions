@@ -11,6 +11,3 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists/*
 
 COPY . .
-
-EXPOSE 3000
-CMD ["rails", "server", "-b", "0.0.0.0"]

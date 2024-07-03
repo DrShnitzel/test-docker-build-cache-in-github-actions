@@ -21,7 +21,4 @@ jobs:
           echo "IMAGE_NAME=my-test:${BRANCH_NAME}-${GITHUB_SHA}" >> $GITHUB_ENV
 
       - name: Build image
-        run: |
-          docker build \
-          --tag ${{ env.IMAGE_NAME }} \
-          .
+        run: docker build -t ${{ env.IMAGE_NAME }} .
